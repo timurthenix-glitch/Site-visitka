@@ -6,9 +6,9 @@
 }
 
 :root {
-    --accent: #4A90E2;
-    --accent-hover: #3A7BD5;
-    --accent-light: rgba(74, 144, 226, 0.08);
+    --accent: #007AFF;
+    --accent-hover: #0051D5;
+    --accent-light: rgba(0, 122, 255, 0.10);
     --text: #1A1A2E;
     --text-secondary: #6B7280;
     --bg: #FFFFFF;
@@ -59,25 +59,30 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 24px;
-    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    border-radius: 100px;
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn--primary {
     background: var(--accent);
     color: white;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.30);
 }
 
 .btn--primary:hover {
     background: var(--accent-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 122, 255, 0.40);
+}
+
+.btn--primary:active {
+    transform: scale(0.97);
 }
 
 .btn--full {
@@ -158,16 +163,23 @@ body {
     width: 44px;
     height: 44px;
     border: none;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-sm);
+    background: rgba(120, 120, 128, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
     cursor: pointer;
     color: var(--text);
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .theme-btn:hover {
-    background: var(--accent-light);
+    background: rgba(0, 122, 255, 0.12);
     color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.theme-btn:active {
+    transform: scale(0.93);
 }
 
 .theme-btn__icon {
@@ -204,16 +216,23 @@ body {
     width: 44px;
     height: 44px;
     border: none;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-sm);
+    background: rgba(120, 120, 128, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
     cursor: pointer;
     color: var(--text);
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cart-btn:hover {
-    background: var(--accent-light);
+    background: rgba(0, 122, 255, 0.12);
     color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.cart-btn:active {
+    transform: scale(0.93);
 }
 
 .cart-btn__count {
@@ -281,27 +300,33 @@ body {
 }
 
 .filter-btn {
-    padding: 8px 18px;
+    padding: 8px 20px;
     border: 1px solid var(--border);
     background: var(--bg);
-    border-radius: 20px;
+    border-radius: 100px;
     font-size: 14px;
     font-weight: 500;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     font-family: inherit;
 }
 
 .filter-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.filter-btn:active {
+    transform: scale(0.95);
 }
 
 .filter-btn.active {
     background: var(--accent);
     color: white;
     border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(0, 122, 255, 0.30);
 }
 
 /* Product Grid */
@@ -401,19 +426,25 @@ body {
     width: 36px;
     height: 36px;
     border: none;
-    background: var(--accent-light);
+    background: rgba(0, 122, 255, 0.10);
     color: var(--accent);
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .product-card__add:hover {
     background: var(--accent);
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.product-card__add:active {
+    transform: scale(0.90);
 }
 
 /* Footer */
@@ -479,19 +510,26 @@ body {
     width: 36px;
     height: 36px;
     border: none;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-sm);
+    background: rgba(120, 120, 128, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: var(--text-secondary);
-    transition: var(--transition);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cart-drawer__close:hover {
-    background: var(--border);
-    color: var(--text);
+    background: rgba(0, 122, 255, 0.10);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.cart-drawer__close:active {
+    transform: scale(0.90);
 }
 
 .cart-drawer__body {
