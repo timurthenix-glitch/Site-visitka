@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tea & Thyme — Натуральные травяные сборы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+        <svg class="logo__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 5 19 7.5 20 11c.8 2.7-1.5 5.5-4 6.5"/><path d="M14 20c.3 0 .7 0 1-.1"/><path d="M17 17.9c.7-.7 1.2-1.6 1.5-2.5"/><path d="M5 22c.5-2 1.5-4 3-5.5"/></svg>
+        <span class="logo__text">Tea & Thyme</span>
+      </a>
+
+      <div class="search-desktop">
+        <svg class="search__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="search__input" id="searchInput" placeholder="Поиск трав...">
+      </div>
+
+      <div class="header__actions">
+        <button class="btn-icon md-hidden" id="mobileSearchBtn" aria-label="Поиск">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button class="btn-icon" id="profileBtn" aria-label="Профиль">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <button class="btn-icon btn-icon--cart" id="cartBtn" aria-label="Корзина">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="search-mobile" id="mobileSearch">
+      <input type="text" class="search__input" id="mobileSearchInput" placeholder="Поиск трав...">
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <span class="hero__label">Натуральные травяные сборы</span>
+      <h1 class="hero__title">Tea & Thyme</h1>
+      <p class="hero__subtitle">Природа в каждой чашке. Натуральные травы для вашего здоровья и гармонии.</p>
+      <button class="hero__cta" onclick="scrollToCatalog()">Смотреть каталог</button>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <section class="catalog" id="catalog">
+    <div class="catalog__header">
+      <h2 class="catalog__title">Наши травы</h2>
+      <p class="catalog__subtitle">Веберите идеальные сборы для вашего чая</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="products" id="products"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 8l6 6"/><path d="m14 8-6 6"/></svg>
+      <p>Ничего не найдено</p>
+    </div>
+  </section>
+
+  <!-- Recipes -->
+  <section class="recipes" id="recipes">
+    <div class="recipes__header">
+      <h2 class="recipes__title">Готовые рецепты</h2>
+      <p class="recipes__subtitle">Сборы от нашего травника — подобраны для гармонии вкуса и эффекта</p>
+    </div>
+    <div class="recipes__grid" id="recipesGrid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 5 19 7.5 20 11c.8 2.7-1.5 5.5-4 6.5"/><path d="M14 20c.3 0 .7 0 1-.1"/><path d="M17 17.9c.7-.7 1.2-1.6 1.5-2.5"/><path d="M5 22c.5-2 1.5-4 3-5.5"/></svg>
+        <span>Tea & Thyme</span>
+      </div>
+      <p class="footer__tagline">Природа в каждой чашке</p>
+      <div class="footer__links">
+        <a href="#catalog" onclick="scrollToCatalog();return false;">Каталог</a>
+        <a href="#" onclick="openProfile();return false;">О нас</a>
+        <a href="#" onclick="openProfile();return false;">Доставка</a>
+        <a href="#" onclick="openProfile();return false;">Контакты</a>
+      </div>
+      <p class="footer__copy">&copy; 2025 Tea & Thyme. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal__overlay" onclick="closeProductModal()"></div>
+    <div class="modal__content">
+      <button class="modal__close" onclick="closeProductModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div class="modal__body" id="productModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="drawer" id="cartDrawer">
+    <div class="drawer__overlay" onclick="closeCart()"></div>
+    <div class="drawer__panel">
+      <div class="drawer__header">
+        <h3>Корзина</h3>
+        <button class="btn-icon" onclick="closeCart()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="drawer__body" id="cartBody"></div>
+      <div class="drawer__footer" id="cartFooter">
+        <div class="cart-total">
+          <span>Итого:</span>
+          <span id="cartTotalPrice">0 ₽</span>
+        </div>
+        <button class="btn-primary" onclick="showOrderForm()">Оформить заказ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Form -->
+  <div class="modal" id="orderModal">
+    <div class="modal__overlay" onclick="closeOrderForm()"></div>
+    <div class="modal__content modal__content--small">
+      <button class="modal__close" onclick="closeOrderForm()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div class="order-form">
+        <h3>Оформление заказа</h3>
+        <div class="form-group">
+          <label>Имя</label>
+          <input type="text" id="orderName" placeholder="Ваше имя">
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" id="orderPhone" placeholder="+7 (999) 000-00-00">
+        </div>
+        <div class="form-group">
+          <label>Адрес доставки</label>
+          <textarea id="orderAddress" rows="3" placeholder="Город, улица, дом, квартира"></textarea>
+        </div>
+        <button class="btn-primary" onclick="submitOrder()">Подтвердить заказ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div class="modal" id="profileModal">
+    <div class="modal__overlay" onclick="closeProfile()"></div>
+    <div class="modal__content modal__content--small">
+      <button class="modal__close" onclick="closeProfile()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div id="profileBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

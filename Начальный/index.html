@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mura — цифровые продукты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #05050a;
+      --depth: #0a0a12;
+      --ghost: #f0f0f5;
+      --mist: #9a9aa8;
+      --dim: #4a4a5a;
+      --accent: #4A90E2;
+      --accent-glow: rgba(74, 144, 226, 0.15);
+      --border: rgba(245, 240, 230, 0.08);
+      --rise: cubic-bezier(0.22, 1, 0.36, 1);
+      --drift: cubic-bezier(0.45, 0, 0.55, 1);
+      --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--void);
+      color: var(--ghost);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Atmospheric mesh gradient */
+    .atmosphere {
+      position: fixed;
+      inset: -50%;
+      z-index: 0;
+      opacity: 0.45;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(74, 144, 226, 0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 60%, rgba(90, 100, 200, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 80%, rgba(74, 144, 226, 0.05) 0%, transparent 60%);
+      animation: drift 20s var(--drift) infinite alternate;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      100% { transform: translate(-3%, -2%) rotate(2deg) scale(1.08); }
+    }
+
+    /* Noise texture overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.025;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .stage {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: emerge 1s var(--rise) 0.3s forwards;
+    }
+
+    .name {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(64px, 14vw, 160px);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      color: var(--ghost);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: emerge 1.2s var(--rise) 0.5s forwards;
+      position: relative;
+    }
+
+    .name::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--dim) 50%, transparent 100%);
+      opacity: 0;
+      animation: lineReveal 1.5s var(--rise) 1.4s forwards;
+    }
+
+    @keyframes lineReveal {
+      from { opacity: 0; transform: scaleX(0); }
+      to { opacity: 0.4; transform: scaleX(1); }
+    }
+
+    .tagline {
+      margin-top: 36px;
+      font-size: clamp(14px, 2.2vw, 18px);
+      font-weight: 300;
+      color: var(--mist);
+      letter-spacing: 0.04em;
+      opacity: 0;
+      animation: emerge 1s var(--rise) 1s forwards;
+    }
+
+    .divider {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--dim);
+      display: inline-block;
+      margin: 0 14px;
+      vertical-align: middle;
+    }
+
+    .cta {
+      margin-top: 56px;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: emerge 1s var(--rise) 1.5s forwards;
+    }
+
+    .cta a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 40px;
+      border-radius: 100px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: all 0.35s var(--rise);
+      overflow: hidden;
+    }
+
+    .cta a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.25) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .cta a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(74, 144, 226, 0.35), 0 0 0 1px rgba(74, 144, 226, 0.2);
+    }
+
+    .cta a:hover::before {
+      opacity: 1;
+    }
+
+    .cta a:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .cta a svg {
+      transition: transform 0.35s var(--rise);
+    }
+
+    .cta a:hover svg {
+      transform: translateX(4px);
+    }
+
+    .projects {
+      display: flex;
+      gap: 16px;
+      margin-top: 52px;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: emerge 1s var(--rise) 1.5s forwards;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 24px 28px;
+      min-width: 240px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--ghost);
+      text-decoration: none;
+      transition: all 0.35s var(--rise);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,144,226,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(74,144,226,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card__title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card__desc {
+      font-size: 13px;
+      color: var(--mist);
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card__arrow {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      color: var(--dim);
+      transition: var(--transition);
+      z-index: 1;
+    }
+
+    .project-card:hover .project-card__arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .meta {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: emerge 1s var(--rise) 2s forwards;
+      z-index: 2;
+    }
+
+    /* Subtle corner accents */
+    .corner {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      z-index: 2;
+      opacity: 0;
+      animation: emerge 1.5s var(--rise) 2.2s forwards;
+    }
+
+    .corner--tl { top: 28px; left: 28px; border-top: 1px solid var(--dim); border-left: 1px solid var(--dim); opacity: 0.25; }
+    .corner--tr { top: 28px; right: 28px; border-top: 1px solid var(--dim); border-right: 1px solid var(--dim); opacity: 0.25; }
+    .corner--bl { bottom: 28px; left: 28px; border-bottom: 1px solid var(--dim); border-left: 1px solid var(--dim); opacity: 0.25; }
+    .corner--br { bottom: 28px; right: 28px; border-bottom: 1px solid var(--dim); border-right: 1px solid var(--dim); opacity: 0.25; }
+
+    @keyframes emerge {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 520px) {
+      .stage { padding: 32px 20px; }
+      .badge { margin-bottom: 24px; }
+      .tagline { margin-top: 28px; }
+      .divider { margin: 0 10px; }
+      .projects { margin-top: 40px; gap: 12px; }
+      .project-card { min-width: 0; width: 100%; max-width: 320px; padding: 20px 22px; }
+      .cta { margin-top: 44px; }
+      .cta a { padding: 14px 32px; font-size: 14px; }
+      .corner { width: 36px; height: 36px; }
+      .corner--tl, .corner--tr { top: 16px; }
+      .corner--bl, .corner--br { bottom: 16px; }
+      .corner--tl, .corner--bl { left: 16px; }
+      .corner--tr, .corner--br { right: 16px; }
+      .meta { bottom: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .atmosphere, .name, .badge, .tagline, .cta, .meta, .corner {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .name::after { animation: none; opacity: 0.4; transform: scaleX(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="atmosphere"></div>
+  <div class="grain"></div>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <main class="stage">
+    <div class="badge">Портфолио</div>
+    <h1 class="name">Mura</h1>
+    <p class="tagline">Вайбкодер<span class="divider"></span>Цифровые продукты</p>
+    <div class="projects">
+      <a href="../digitalmarket/index.html" class="project-card">
+        <span class="project-card__label">Магазин</span>
+        <span class="project-card__title">DigitalMarket</span>
+        <span class="project-card__desc">Шаблоны, скрипты, UI-киты</span>
+        <span class="project-card__arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </span>
+      </a>
+      <a href="../Tea Market Simple/index.html" class="project-card">
+        <span class="project-card__label">Магазин</span>
+        <span class="project-card__title">Tea & Thyme</span>
+        <span class="project-card__desc">Травяные сборы для чая</span>
+        <span class="project-card__arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </span>
+      </a>
+    </div>
+  </main>
+
+  <div class="meta">Digital Products 2025</div>
+</body>
+</html>

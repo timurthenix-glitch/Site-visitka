@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalMarket — Цифровые товары</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="#" class="logo">
+                <svg class="logo__icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="10" fill="#4A90E2"/>
+                    <path d="M12 20C12 15.5817 15.5817 12 20 12V12C24.4183 12 28 15.5817 28 20V28H12V20Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="20" cy="20" r="3" fill="white"/>
+                </svg>
+                <span class="logo__text">DigitalMarket</span>
+            </a>
+            
+            <nav class="nav">
+                <a href="#" class="nav__link active">Каталог</a>
+                <a href="#" class="nav__link">О нас</a>
+                <a href="#" class="nav__link">Поддержка</a>
+            </nav>
+            
+            <div class="header__actions">
+                <button class="theme-btn" id="themeToggle" title="Переключить тему">
+                    <svg class="theme-btn__icon theme-btn__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
+                    <svg class="theme-btn__icon theme-btn__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                
+                <button class="cart-btn" id="cartToggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    </svg>
+                    <span class="cart-btn__count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero__title">Цифровые товары для&nbsp;творчества и&nbsp;работы</h1>
+            <p class="hero__subtitle">Качественные шаблоны, скрипты, UI-киты и плагины от профессионалов</p>
+            <a href="#products" class="btn btn--primary">Смотреть каталог</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="products__header">
+                <h2 class="products__title">Каталог товаров</h2>
+                <div class="filters" id="filters">
+                    <button class="filter-btn active" data-category="all">Все</button>
+                    <button class="filter-btn" data-category="templates">Шаблоны</button>
+                    <button class="filter-btn" data-category="ui-kits">UI-Киты</button>
+                    <button class="filter-btn" data-category="scripts">Скрипты</button>
+                    <button class="filter-btn" data-category="plugins">Плагины</button>
+                    <button class="filter-btn" data-category="icons">Иконки</button>
+                </div>
+            </div>
+            
+            <div class="products__grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 DigitalMarket. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer__header">
+            <h3 class="cart-drawer__title">Корзина</h3>
+            <button class="cart-drawer__close" id="cartClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-drawer__body" id="cartBody">
+            <div class="cart-empty">Корзина пуста</div>
+        </div>
+        <div class="cart-drawer__footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span class="cart-total__price" id="cartTotal">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--full">Оформить заказ</button>
+        </div>
+    </aside>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
